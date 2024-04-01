@@ -1,0 +1,68 @@
+{% extends 'myapp/base.html' %} {% block content %}
+
+<!-- Page info -->
+<div class="page-info-section set-bg" data-setbg="/media/images/1.jpg">
+  <div class="container">
+    <div class="site-breadcrumb">
+      <a href="#">Home</a>
+      <span>Teachers</span>
+    </div>
+  </div>
+</div>
+<!-- Page info end -->
+
+<!-- search section -->
+<section class="search-section ss-other-page">
+  <div class="container">
+    <div class="search-warp">
+      <div class="section-title text-white">
+        <h2><span>Search your Favourite Teacher</span></h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+          <!-- search form -->
+          <form class="course-search-form" method="POST" action="{% url 'teachers' %}">
+            {% csrf_token %}
+            <input type="text" name="subject" placeholder="Subject" />
+            <input type="text" name="location" class="last-s" placeholder="Location" />
+            <button type="submit" class="site-btn">Search Course</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- search section end -->
+
+<!-- categories section -->
+<section class="categories-section spad">
+  <div class="container">
+    <div class="section-title">
+      <h2>Our Best Teachers</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+    </div>
+    <div class="row">
+      {% for t in latest_teachers %}
+      <!-- categorie -->
+      <div class="col-lg-4 col-md-6">
+        <div class="categorie-item">
+          <div class="ci-thumb set-bg" data-setbg="/media{{t.profile_img}}"></div>
+          <div class="ci-text">
+            <h5>{{t.user.first_name}} {{t.user.last_name}}</h5>
+            <p>{{t.subjects_taught}}</p>
+            <span>{{t.experience}}</span>
+            {% if request.user.is_authenticated %}
+            <p>{{t.address}} {{t.city}} {{t.state}} {{t.country}}</p>
+            <p>{{t.email}}</p>
+            <p>{{t.phone_number}}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- categories section end -->
+
+{% endblock %}

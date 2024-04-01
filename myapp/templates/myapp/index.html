@@ -1,0 +1,119 @@
+{% extends 'myapp/base.html' %} {% block content %}
+
+<!-- Hero section -->
+<section class="hero-section set-bg" data-setbg="/media/images/bg.jpg">
+  <div class="container">
+    <div class="hero-text text-white">
+      <h2>Get The Best Free Online Teachers</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla <br />
+        dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <form class="intro-newslatter" method="POST" action="{% url 'teachers' %}">
+          {% csrf_token %}
+          <input type="text" name="subject" placeholder="Subject" />
+          <input type="text" name="location" class="last-s" placeholder="Location" />
+          <button type="submit" class="site-btn">Search Teacher</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Hero section end -->
+
+<!-- categories section -->
+<section class="categories-section spad">
+  <div class="container">
+    <div class="section-title">
+      <h2>Our Best Teachers</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+    </div>
+    <div class="row">
+      {% for t in latest_teachers %}
+      <!-- categorie -->
+      <div class="col-lg-4 col-md-6">
+        <div class="categorie-item">
+          <div class="ci-thumb set-bg" data-setbg="/media{{t.profile_img}}"></div>
+          <div class="ci-text">
+            <h5>{{t.user.first_name}} {{t.user.last_name}}</h5>
+            <p>{{t.subjects_taught}}</p>
+            <span>{{t.experience}}</span>
+            {% if request.user.is_authenticated %}
+            <p>{{t.address}} {{t.city}} {{t.state}} {{t.country}}</p>
+            <p>{{t.email}}</p>
+            <p>{{t.phone_number}}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- categories section end -->
+
+<!-- search section -->
+<!-- <section class="search-section">
+  <div class="container">
+    <div class="search-warp">
+      <div class="section-title text-white">
+        <h2>Search your Teacher</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+          <form class="Teacher-search-form">
+            <input type="text" placeholder="Teacher" />
+            <input type="text" class="last-m" placeholder="Category" />
+            <button class="site-btn">Search Couse</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- search section end -->
+
+<!-- signup section -->
+<section class="signup-section spad">
+  <div class="signup-bg set-bg" data-setbg="/media/images/signup-bg.jpg"></div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="signup-warp">
+          <div class="section-title text-white text-left">
+            <h2>Sign up to became a teacher</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+          </div>
+          <!-- signup form -->
+          <form class="signup-form">
+            <!-- <input type="text" placeholder="Your Name" />
+            <input type="text" placeholder="Your E-mail" />
+            <input type="text" placeholder="Your Phone" />
+            <label for="v-upload" class="file-up-btn">Upload Teacher</label>
+            <input type="file" id="v-upload" /> -->
+            <a href="{% url 'become_teacher' %}" class="site-btn">Become Teacher</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- signup section end -->
+
+<!-- banner section -->
+<section class="banner-section spad">
+  <div class="container">
+    <div class="section-title mb-0 pb-2">
+      <h2>Join Our Community Now!</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+    </div>
+    <div class="text-center pt-5">
+      <a href="{% url 'become_student' %}" class="site-btn">Register Now</a>
+    </div>
+  </div>
+</section>
+<!-- banner section end -->
+{% endblock %}

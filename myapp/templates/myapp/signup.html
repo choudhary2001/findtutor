@@ -1,0 +1,58 @@
+{% extends 'myapp/base.html' %} {% block content %} {% block css %}
+
+<style>
+  #site-logo-header {
+    color: white !important;
+  }
+
+  input {
+    height: 45px !important;
+    margin-bottom: 5px !important;
+  }
+  textarea {
+    height: 100px !important;
+  }
+</style>
+{% endblock %}
+<!-- signup section -->
+<section class="signup-section spad">
+  <div class="signup-bg set-bg" style="z-index: 0" data-setbg="/media/images/signup-bg.jpg"></div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12" style="margin-top: 50px" style="z-index: 999">
+        <div class="signup-warp">
+          <div class="section-title text-white text-left">
+            <h2>Sign up to became a teacher</h2>
+            {% if messages %} {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}" {% endif %} style="width: 90%; font-size: 1rem">{{ message }}</p>
+            {% endfor %} {% endif %}
+          </div>
+          <!-- signup form -->
+          <form class="signup-form" method="POST" action="{% url 'become_teacher' %}">
+            {% csrf_token %}
+            <input type="text" name="first_name" placeholder="Your First Name" required />
+            <input type="text" name="last_name" placeholder="Your Last Name" required />
+            <input type="text" name="email" placeholder="Your E-mail" required />
+            <input type="password" name="password" placeholder="Your Password" required style="width: 100%; background: #edf4f6; border: none; padding: 25px" />
+            <input type="text" name="phone" placeholder="Your Phone" required />
+            <input type="date" name="dob" placeholder="Your DOB" required style="width: 100%; background: #edf4f6; border: none; padding: 25px" />
+            <textarea name="address" placeholder="Your Address" required></textarea>
+            <input type="text" name="city" placeholder="Your City" required />
+            <input type="text" name="state" placeholder="Your State" required />
+            <input type="text" name="country" placeholder="Your Country" required />
+            <input type="text" name="qualification" placeholder="Your Qualification" required />
+            <input type="text" name="experience" placeholder="Your Experience" required />
+            <input type="text" name="subjects_taught" placeholder="Subject You Taught" required />
+            <label>Upload Profile Image</label>
+            <input type="file" accept="images/*" name="profile_image" placeholder="Upload Profile Image" required style="width: 100%; background: #edf4f6; border: none; padding: 5px; display: block" />
+            <button type="submit" class="site-btn">Become Teacher</button>
+            <br />
+            <div>You have already an account then login <a href="{%  url 'signin' %}">Login</a></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- signup section end -->
+{% endblock %}

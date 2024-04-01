@@ -1,0 +1,49 @@
+{% extends 'myapp/base.html' %} {% block content %} {% block css %}
+
+<style>
+  #site-logo-header {
+    color: white !important;
+  }
+
+  input {
+    height: 45px !important;
+    margin-bottom: 5px !important;
+  }
+  textarea {
+    height: 100px !important;
+  }
+</style>
+{% endblock %}
+<!-- signup section -->
+<section class="signup-section spad">
+  <div class="signup-bg set-bg" style="z-index: 0" data-setbg="/media/images/signup-bg.jpg"></div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12" style="margin-top: 50px" style="z-index: 999">
+        <div class="signup-warp">
+          <div class="section-title text-white text-left">
+            <h2>Sign up to became a student</h2>
+            {% if messages %} {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}" {% endif %} style="width: 90%; font-size: 1rem">{{ message }}</p>
+            {% endfor %} {% endif %}
+          </div>
+          <!-- signup form -->
+          <form class="signup-form" method="POST" action="{% url 'become_student' %}">
+            {% csrf_token %}
+            <input type="text" name="first_name" placeholder="Your First Name" required />
+            <input type="text" name="last_name" placeholder="Your Last Name" required />
+            <input type="text" name="email" placeholder="Your E-mail" required />
+            <input type="text" name="phone" placeholder="Your Phone" required />
+            <input type="password" name="password" placeholder="Your Password" required style="width: 100%; background: #edf4f6; border: none; padding: 25px" />
+
+            <button type="submit" class="site-btn">Become Students</button>
+            <br />
+            <div>You have already an account then login <a href="{%  url 'signin' %}">Login</a></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- signup section end -->
+{% endblock %}
